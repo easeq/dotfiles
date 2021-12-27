@@ -6,6 +6,21 @@
 :set smarttab
 :set softtabstop=4
 :set mouse=a
+:set ttyfast
+
+" Different tab/space stops"
+autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype json setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+autocmd FileType make setlocal noexpandtab
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype tf setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 call plug#begin("~/.vim/plugged")
   " Theme
@@ -81,7 +96,7 @@ let g:fzf_action = {
   \}
 " requires silversearcher-ag
 " used to ignore gitignore files
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " open new split panes to right and below
 set splitright
@@ -104,7 +119,7 @@ nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
 
 nnoremap <C-f> :NERDTreeFocus<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR> 
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
