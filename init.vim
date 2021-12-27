@@ -24,7 +24,7 @@ autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 call plug#begin("~/.vim/plugged")
   " Theme
-  Plug 'dracula/vim'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
   Plug 'https://github.com/tpope/vim-commentary'
   Plug 'https://github.com/vim-airline/vim-airline' " Status bar
@@ -76,8 +76,9 @@ if (has("termguicolors"))
 endif
 
 " Theme
+set background=dark
 syntax enable
-colorscheme dracula
+colorscheme PaperColor 
 
 let g:NERDTreeShowHidden = 0 
 let g:NERDTreeMinimalUI = 1
@@ -117,6 +118,10 @@ nnoremap <A-l> <C-w>l
 
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
+
+" Commmenting using vim-commentary
+nmap <C-m> gcc
+vmap <C-m> gc
 
 nnoremap <C-f> :NERDTreeFocus<CR>
 " nnoremap <C-t> :NERDTreeToggle<CR>
