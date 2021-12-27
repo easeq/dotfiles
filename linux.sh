@@ -70,6 +70,19 @@ regolith-look refresh
 sudo apt purge remontoire -y
 sudo apt install -y i3xrocks-time i3xrocks-volume 
 
+# nodejs
+curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node --version
+
+# vim plugin installer
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# nvim plugin installer
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 # blueman
 sudo apt install -y blueman
 
