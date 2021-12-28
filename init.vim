@@ -17,6 +17,13 @@
 :set scrolloff=10
 :set cursorline
 
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
 " Nice menu when typing `:find *.py`
 set wildmode=longest,list,full
 set wildmenu
@@ -45,6 +52,7 @@ autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype tf setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+autocmd Filetype vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 call plug#begin("~/.vim/plugged")
   " Theme
