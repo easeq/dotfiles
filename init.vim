@@ -7,6 +7,28 @@
 :set softtabstop=4
 :set mouse=a
 :set ttyfast
+:set autowrite
+:set showcmd
+:set incsearch
+:set magic
+:set colorcolumn=80,100
+:set nowrap
+:set fileencoding=utf-8
+
+" Nice menu when typing `:find *.py`
+set wildmode=longest,list,full
+set wildmenu
+" Ignore files
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
+set wildignore+=**/cache/*
+set wildignore+=**/generated/*
+set wildignore+=**/page_cache/*
 
 " Different tab/space stops"
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
@@ -30,6 +52,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'https://github.com/vim-airline/vim-airline' " Status bar
   Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
   Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
+  Plug 'https://github.com/blueyed/vim-diminactive'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
@@ -78,7 +101,7 @@ endif
 " Theme
 set background=dark
 syntax enable
-colorscheme PaperColor 
+colorscheme PaperColor
 
 let g:NERDTreeShowHidden = 0 
 let g:NERDTreeMinimalUI = 1
@@ -98,6 +121,26 @@ let g:fzf_action = {
 " requires silversearcher-ag
 " used to ignore gitignore files
 " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+" Look for files with FZF on ff
+nnoremap <silent> <C-p> :Files<CR>
+map <silent> <leader>sf :Files<CR>
+" Look for gitfiles with fg
+map <silent> <leader>sg :GFiles<CR>
+" Show buffers with lb
+map <silent> <leader>lb :Buffers<CR>
+" Show tags with lt
+map <silent> <leader>lt :Tags<CR>
+" Search all file contents with  ripgrep on Ctrl+g
+nnoremap <silent> <C-g> :Rg<CR>
+map <silent> <leader>fa :Rg<CR>
+" Search within file with FZF on Ctrl+f
+nnoremap <silent> <C-f> :BLines<CR>
+map <silent> <leader>fs :BLines<CR>
+" Open buffer list ready to fill in on <space>b
+nnoremap <Leader>b :ls<Cr>:b<Space>
+" Remap escape to qq
+inoremap qq <Esc>
 
 " open new split panes to right and below
 set splitright
@@ -123,7 +166,7 @@ nnoremap <C-j> <C-d>
 nmap <C-m> gcc
 vmap <C-m> gc
 
-nnoremap <C-f> :NERDTreeFocus<CR>
+" nnoremap <C-f> :NERDTreeFocus<CR>
 " nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR> 
 " start terminal in insert mode
