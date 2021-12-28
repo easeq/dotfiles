@@ -14,6 +14,8 @@
 :set colorcolumn=80,100
 :set nowrap
 :set fileencoding=utf-8
+:set scrolloff=10
+:set cursorline
 
 " Nice menu when typing `:find *.py`
 set wildmode=longest,list,full
@@ -123,6 +125,8 @@ let g:fzf_action = {
 " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Look for files with FZF on ff
+nnoremap <silent> <C-y> :History<CR>
+nnoremap <silent> <C-s> :Buffers<CR>
 nnoremap <silent> <C-p> :Files<CR>
 map <silent> <leader>sf :Files<CR>
 " Look for gitfiles with fg
