@@ -55,6 +55,7 @@ autocmd Filetype rs setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype sql setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 call plug#begin("~/.vim/plugged")
   " Theme

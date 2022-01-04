@@ -40,6 +40,8 @@ sudo apt install -y fzf ripgrep
 sudo apt install -y tmux
 sudo apt install -y zsh
 sudo apt install -y gnupg software-properties-common
+sudo apt install -y jq
+sudo snap install bw
 
 # lazygit
 sudo add-apt-repository -y ppa:lazygit-team/release && sudo apt update
