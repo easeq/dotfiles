@@ -54,6 +54,8 @@ autocmd Filetype tf setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype rs setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype jsx setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype tsx setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype sql setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
@@ -61,12 +63,13 @@ call plug#begin("~/.vim/plugged")
   " Theme
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+  Plug 'tpope/vim-obsession'
   Plug 'https://github.com/tpope/vim-commentary'
   Plug 'https://github.com/vim-airline/vim-airline' " Status bar
   Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
   Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
   Plug 'https://github.com/blueyed/vim-diminactive'
-
+ 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   let g:coc_global_extensions = [
@@ -106,6 +109,11 @@ call plug#begin("~/.vim/plugged")
 
 call plug#end()
 
+
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 " Enable theming support
 if (has("termguicolors"))
