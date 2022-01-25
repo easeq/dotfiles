@@ -39,6 +39,8 @@ set wildignore+=**/cache/*
 set wildignore+=**/generated/*
 set wildignore+=**/page_cache/*
 
+:filetype plugin on
+
 " Different tab/space stops"
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
@@ -74,6 +76,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   " Plug 'sbdchd/neoformat'
   Plug 'Yggdroot/indentLine'
+  Plug 'chrisbra/csv.vim'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
