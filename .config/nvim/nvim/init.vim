@@ -41,6 +41,13 @@ set wildignore+=**/page_cache/*
 
 :filetype plugin on
 
+inoremap ' ''<Left>
+inoremap " ""<Left>
+inoremap < <><Left>
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+
 " Different tab/space stops"
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
