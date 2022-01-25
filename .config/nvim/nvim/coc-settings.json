@@ -1,0 +1,7 @@
+{
+  "go.goplsOptions": {
+    "completeUnimported": true,
+    "experimentalWorkspaceModule": true
+  },
+  "coc.preferences.formatOnSaveFiletypes": ["js", "jsx", "ts", "tsx", "css", "markdown"]
+}
