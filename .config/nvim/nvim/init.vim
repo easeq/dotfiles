@@ -39,14 +39,17 @@ set wildignore+=**/cache/*
 set wildignore+=**/generated/*
 set wildignore+=**/page_cache/*
 
-:filetype plugin on
+filetype plugin on
+filetype plugin indent on
 
 inoremap ' ''<Left>
 inoremap " ""<Left>
-inoremap < <><Left>
+" inoremap < <><Left>
 inoremap ( ()<Left>
 inoremap [ []<Left>
 inoremap { {}<Left>
+
+runtime macros/matchit.vim
 
 " Different tab/space stops"
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
@@ -84,6 +87,7 @@ call plug#begin("~/.vim/plugged")
   " Plug 'sbdchd/neoformat'
   Plug 'Yggdroot/indentLine'
   Plug 'chrisbra/csv.vim'
+  Plug 'alvan/vim-closetag'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
@@ -211,6 +215,35 @@ let g:airline_symbols.linenr = ''
 
 " vim-indentline
 let g:indentLine_char_list = ['|']
+
+" closetag
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+let g:closetag_filetypes = 'html,xhtml,phtml'
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+let g:closetag_emptyTags_caseSensitive = 1
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+" Shortcut for closing tags, default is '>'
+let g:closetag_shortcut = '>'
+" Add > at current position without closing the current tag, default is ''
+let g:closetag_close_shortcut = '<leader>>'
 
 " neoformat
 " let g:neoformat_try_node_exe = 1
