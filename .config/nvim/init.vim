@@ -69,7 +69,10 @@ call plug#begin("~/.vim/plugged")
   Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
   Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
   Plug 'https://github.com/blueyed/vim-diminactive'
- 
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   let g:coc_global_extensions = [
@@ -101,10 +104,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
 
-  " File Search
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-
   set encoding=UTF-8
 
 call plug#end()
@@ -134,37 +133,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
-nnoremap <C-p> :FZF<CR>
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
-" requires silversearcher-ag
-" used to ignore gitignore files
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" Look for files with FZF on ff
-nnoremap <silent> <C-y> :History<CR>
-nnoremap <silent> <C-s> :Buffers<CR>
-nnoremap <silent> <C-p> :Files<CR>
-map <silent> <leader>sf :Files<CR>
-" Look for gitfiles with fg
-map <silent> <leader>sg :GFiles<CR>
-" Show buffers with lb
-map <silent> <leader>lb :Buffers<CR>
-" Show tags with lt
-map <silent> <leader>lt :Tags<CR>
-" Search all file contents with  ripgrep on Ctrl+g
-nnoremap <silent> <C-g> :Rg<CR>
-map <silent> <leader>fa :Rg<CR>
-" Search within file with FZF on Ctrl+f
-nnoremap <silent> <C-f> :BLines<CR>
-map <silent> <leader>fs :BLines<CR>
-" Open buffer list ready to fill in on <space>b
-nnoremap <Leader>b :ls<Cr>:b<Space>
 " Remap escape to qq
 inoremap qq <Esc>
+
+" Find files using Telescope command-line sugar.
+nnoremap <silent>ff <cmd>Telescope find_files<cr>
+nnoremap <silent>fg <cmd>Telescope live_grep<cr>
+nnoremap <silent>fb <cmd>Telescope buffers<cr>
+nnoremap <silent>fh <cmd>Telescope help_tags<cr>
 
 " open new split panes to right and below
 set splitright
