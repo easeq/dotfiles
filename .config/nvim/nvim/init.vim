@@ -66,7 +66,7 @@ autocmd Filetype tf setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype rs setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype ts setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-autocmd Filetype jsx setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd Filetype jsx setlocal tabstop=1 shiftwidth=1 softtabstop=1 expandtab
 autocmd Filetype tsx setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd Filetype sql setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
@@ -84,10 +84,11 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  " Plug 'sbdchd/neoformat'
+  Plug 'sbdchd/neoformat'
   Plug 'Yggdroot/indentLine'
   Plug 'chrisbra/csv.vim'
   Plug 'alvan/vim-closetag'
+  Plug 'suy/vim-context-commentstring'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
@@ -113,8 +114,11 @@ call plug#begin("~/.vim/plugged")
       \ ]
 
   " TypeScript Highlighting
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
+  " Plug 'leafgarland/typescript-vim'
+  " Plug 'peitalin/vim-jsx-typescript'
+  Plug 'yuezk/vim-js'
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'maxmellon/vim-jsx-pretty'
 
   " File Explorer with Icons
   Plug 'scrooloose/nerdtree'
@@ -165,16 +169,7 @@ set splitbelow
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
 
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
+" Move half page up-down using Ctrl+k and Ctrl+j respectively
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
 
@@ -184,7 +179,7 @@ vmap <C-m> gc
 
 " nnoremap <C-f> :NERDTreeFocus<CR>
 " nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR> 
+nnoremap <C-l> :call CocActionAsync('jumpDefinition')<cr> 
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
@@ -222,7 +217,7 @@ let g:indentLine_char_list = ['|']
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+" let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 let g:closetag_filetypes = 'html,xhtml,phtml'
@@ -245,6 +240,16 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
+" " vim-context-commentstring
+if exists('g:context#commentstring#table')
+  let g:context#commentstring#table['javascript.jsx'] = {
+              \ 'jsComment' : '// %s',
+              \ 'jsImport' : '// %s',
+              \ 'jsxStatment' : '// %s',
+              \ 'jsxRegion' : '{/*%s*/}',
+              \}
+endif
+
 " neoformat
 " let g:neoformat_try_node_exe = 1
 " " Enable alignment
@@ -256,4 +261,14 @@ let g:closetag_close_shortcut = '<leader>>'
 " let g:neoformat_run_all_formatters = 1
 " let g:neoformat_try_formatprg = 1
 " autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
+
+" augroup NeoformatAutoFormat
+"     autocmd!
+"     autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\
+"                                                             \--stdin\
+"                                                             \--print-width\ 80\
+"                                                             \--single-quote\
+"                                                             \--trailing-comma\ es5
+"     autocmd BufWritePre *.js,*.jsx Neoformat
+" augroup END
 

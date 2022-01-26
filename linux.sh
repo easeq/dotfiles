@@ -76,6 +76,10 @@ sudo apt install -y i3xrocks-time i3xrocks-volume
 curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
 sudo apt-get install -y nodejs
 node --version
+# yarn
+sudo npm install --global yarn
+# prettier
+sudo npm install -g prettier
 
 # vim plugin installer
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
