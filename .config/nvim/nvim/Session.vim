@@ -24,14 +24,14 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 91 - ((36 * winheight(0) + 54) / 109)
+let s:l = 290 - ((105 * winheight(0) + 54) / 109)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 91
-normal! 0
+keepjumps 290
+normal! 013|
 tabnext 1
-badd +287 init.vim
+badd +0 init.vim
 badd +1 coc-settings.json
 badd +1 term://~/.config/nvim//85430:bash
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

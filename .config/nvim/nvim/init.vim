@@ -84,6 +84,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/csv.vim'
 Plug 'alvan/vim-closetag'
 Plug 'suy/vim-context-commentstring'
+Plug 'ThePrimeagen/harpoon'
 
 " Language Client
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
@@ -284,3 +285,9 @@ autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.org
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
+" harpoon
+nmap <silent>hm <cmd> :lua require("harpoon.mark").add_file()<cr>
+nmap <silent>hb <cmd> :lua require("harpoon.ui").toggle_quick_menu()<cr>
+nmap <silent>hh <cmd> :lua require("harpoon.ui").nav_prev()<cr>
+nmap <silent>hl <cmd> :lua require("harpoon.ui").nav_next()<cr>
