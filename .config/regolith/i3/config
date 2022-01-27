@@ -249,31 +249,31 @@ mode "Resize Mode" {
 # These bindings trigger as soon as you enter the resize mode
 
 ## Resize // Resize Window // ↑ ↓ ← → ##
-    bindsym Left resize shrink width 6 px or 6 ppt
-        bindsym Down resize grow height 6 px or 6 ppt
-        bindsym Up resize shrink height 6 px or 6 ppt
-        bindsym Right resize grow width 6 px or 6 ppt
+	bindsym Left resize shrink width 6 px or 6 ppt
+		bindsym Down resize grow height 6 px or 6 ppt
+		bindsym Up resize shrink height 6 px or 6 ppt
+		bindsym Right resize grow width 6 px or 6 ppt
 
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
+		bindsym Shift+Left resize shrink width 12 px or 12 ppt
+		bindsym Shift+Down resize grow height 12 px or 12 ppt
+		bindsym Shift+Up resize shrink height 12 px or 12 ppt
+		bindsym Shift+Right resize grow width 12 px or 12 ppt
 
 ## Resize // Resize Window // k j h l ##
-        bindsym h resize shrink width 6 px or 6 ppt
-        bindsym j resize grow height 6 px or 6 ppt
-        bindsym k resize shrink height 6 px or 6 ppt
-        bindsym l resize grow width 6 px or 6 ppt
+		bindsym h resize shrink width 6 px or 6 ppt
+		bindsym j resize grow height 6 px or 6 ppt
+		bindsym k resize shrink height 6 px or 6 ppt
+		bindsym l resize grow width 6 px or 6 ppt
 
-        bindsym Shift+h resize shrink width 12 px or 12 ppt
-        bindsym Shift+j resize grow height 12 px or 12 ppt
-        bindsym Shift+k resize shrink height 12 px or 12 ppt
-        bindsym Shift+l resize grow width 12 px or 12 ppt
+		bindsym Shift+h resize shrink width 12 px or 12 ppt
+		bindsym Shift+j resize grow height 12 px or 12 ppt
+		bindsym Shift+k resize shrink height 12 px or 12 ppt
+		bindsym Shift+l resize grow width 12 px or 12 ppt
 
 ## Resize // Exit Resize Mode // Escape or Enter ##
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+		bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "Resize Mode"
@@ -283,9 +283,9 @@ bindsym $mod+r mode "Resize Mode"
 ###############################################################################
 
 # Disable titlebar
-default_border pixel 3
+default_border pixel 2
 default_floating_border pixel 1
-for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 2
 
 # Specify the distance between windows in pixels. (i3-gaps)
 gaps inner 0
@@ -300,46 +300,50 @@ popup_during_fullscreen smart
 # window focus follows your mouse movements as the mouse crosses window borders
 focus_follows_mouse no
 
+
+## Sets i3 font for dialogs
+font pango:Source Code Pro Medium 13
+
 ###############################################################################
 # i3 Colors and Fonts
 ###############################################################################
 
-# Window Border color
-# class                 border      background  text        indicator   child_border
-client.focused_inactive #0d1010     #212121     #d9d9d9     #0d1010     #063340
-client.unfocused        #0d1010     #212121     #d9d9d9     #424242     #063340
-client.focused          #d9d9d9     #cecece     #000000     #d9d9d9     #d9d9d9
-client.urgent           #d9d9d9     #dc322f     #fdf6e3     #002b36     #d9d9d9
+## Window Border color
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
+client.background       #F8F8F2
 
-# Sets i3 font for dialogs
-font pango:Source Code Pro Medium 13
+################################################################################
+## i3 Bar
+################################################################################
 
-###############################################################################
-# i3 Bar
-###############################################################################
+## The bar configuration
 
-# The bar configuration
 bar {
-    position bottom
-        mode dock
-        font pango:Source Code Pro Medium 13, Material Design Icons 13
-        separator_symbol " "
-        status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
-        tray_output primary
-        strip_workspace_numbers yes
+	position top
+		mode dock
+		font pango:Source Code Pro Medium 13, Material Design Icons 13
+		separator_symbol " "
+		status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
+		tray_output primary
+		strip_workspace_numbers yes
 
-        colors {
-            background #000000
-                statusline #FFFFFF
-                separator  #666666
+		colors {
+			background #282A36
+				statusline #F8F8F2
+				separator  #44475A
 
-                focused_workspace  #4C7899 #285577 #FFFFFF
-                active_workspace   #333333 #222222 #FFFFFF
-                inactive_workspace #333333 #222222 #888888
-                urgent_workspace   #2F343A #900000 #FFFFFF
-                binding_mode       #2F343A #900000 #FFFFFF
-        }
+				focused_workspace  #44475A #44475A #F8F8F2
+				active_workspace   #282A36 #44475A #F8F8F2
+				inactive_workspace #282A36 #282A36 #BFBFBF
+				urgent_workspace   #FF5555 #FF5555 #F8F8F2
+				binding_mode       #FF5555 #FF5555 #F8F8F2
+		}
 }
 
 ###############################################################################
