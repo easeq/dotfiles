@@ -24,12 +24,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 290 - ((105 * winheight(0) + 54) / 109)
+let s:l = 179 - ((93 * winheight(0) + 54) / 109)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 290
-normal! 013|
+keepjumps 179
+normal! 0
 tabnext 1
 badd +0 init.vim
 badd +1 coc-settings.json

@@ -120,6 +120,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'hashivim/vim-terraform'
+
 set encoding=UTF-8
 
 call plug#end()
@@ -291,3 +293,12 @@ nmap <silent>hm <cmd> :lua require("harpoon.mark").add_file()<cr>
 nmap <silent>hb <cmd> :lua require("harpoon.ui").toggle_quick_menu()<cr>
 nmap <silent>hh <cmd> :lua require("harpoon.ui").nav_prev()<cr>
 nmap <silent>hl <cmd> :lua require("harpoon.ui").nav_next()<cr>
+
+
+lua <<EOF
+require('telescope').setup{
+defaults = {
+  borderchars = { '_', '|', '_', '|', '╭', '╮', '╯', '╰' },
+  }
+}
+EOF
