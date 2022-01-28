@@ -89,6 +89,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+# Install Nerd font
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+
 # install powerline fonts (https://github.com/powerline/fonts)
 # once the installation is complete, change the terminal font to one of the powerline fonts installed
 # I use "Source Code Pro for Powerline Medium"
@@ -117,6 +121,9 @@ cd ~/Downloads
 mkdir -p ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
+
+# install fd-find
+sudo apt install fd-find
 
 # blueman
 sudo apt install -y blueman

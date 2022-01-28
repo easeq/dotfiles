@@ -283,9 +283,9 @@ bindsym $mod+r mode "Resize Mode"
 ###############################################################################
 
 # Disable titlebar
-default_border pixel 2
+default_border pixel 3
 default_floating_border pixel 1
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 3
 
 # Specify the distance between windows in pixels. (i3-gaps)
 gaps inner 0
@@ -300,95 +300,105 @@ popup_during_fullscreen smart
 # window focus follows your mouse movements as the mouse crosses window borders
 focus_follows_mouse no
 
-
-## Sets i3 font for dialogs
-font pango:Source Code Pro Medium 11
-
 ###############################################################################
 # i3 Colors and Fonts
 ###############################################################################
 
-## Window Border color
-# class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# Window Border color
+# class                 border      background  text        indicator   child_border
+client.focused_inactive #0d1010     #212121     #d9d9d9     #0d1010     #063340
+client.unfocused        #0d1010     #212121     #d9d9d9     #424242     #063340
+client.focused          #d9d9d9     #cecece     #000000     #d9d9d9     #d9d9d9
+client.urgent           #d9d9d9     #dc322f     #fdf6e3     #002b36     #d9d9d9
 
-client.background       #F8F8F2
+
+# Sets i3 font for dialogs
+font pango:Source Code Pro Medium 13
 
 ################################################################################
 ## i3 Bar
 ################################################################################
 
 ## The bar configuration
-
 bar {
-	position top
+	position bottom
 		mode dock
-		font pango:Source Code Pro for Powerline Medium 10
-		status_command ~/.config/regolith/bumblebee-status/bumblebee-status \
-		-m nic publicip disk:root memory pasink pasource battery date time \
-		-p root.path=/ time.format="%H:%M:%S" date.format="%a, %b %d %Y" \
-		-t dracula-powerline
-
+		font pango:Source Code Pro Medium 13, Material Design Icons 13
+		separator_symbol " "
+		status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
 		tray_output primary
 		strip_workspace_numbers yes
 
 		colors {
-			background #282A36
-				statusline #F8F8F2
-				separator  #44475A
+			background #000000
+				statusline #FFFFFF
+				separator  #666666
 
-				focused_workspace  #44475A #44475A #F8F8F2
-				active_workspace   #282A36 #44475A #F8F8F2
-				inactive_workspace #282A36 #282A36 #BFBFBF
-				urgent_workspace   #FF5555 #FF5555 #F8F8F2
-				binding_mode       #FF5555 #FF5555 #F8F8F2
+				focused_workspace  #4C7899 #285577 #FFFFFF
+				active_workspace   #333333 #222222 #FFFFFF
+				inactive_workspace #333333 #222222 #888888
+				urgent_workspace   #2F343A #900000 #FFFFFF
+				binding_mode       #2F343A #900000 #FFFFFF
 		}
 }
+
+# # class                 border  bground text    indicator child_border
+# client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+# client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+# client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+# client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+# client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# config
+# client.background       #F8F8F2
+
+# bar {
+#	colors {
+#		background #282A36
+#			statusline #F8F8F2
+#			separator  #44475A
+
+#			focused_workspace  #44475A #44475A
 
 ###############################################################################
 # External programs launched with i3
 ###############################################################################
 
 # Start the installed regolith-compositor
-exec_always --no-startup-id /usr/share/regolith-compositor/init
+	exec_always --no-startup-id /usr/share/regolith-compositor/init
 
 # Start Rofication for notifications
-exec --no-startup-id /usr/bin/rofication-daemon
+		exec --no-startup-id /usr/bin/rofication-daemon
 
 # Launch first time user experience script
-exec --no-startup-id /usr/bin/regolith-ftue
+		exec --no-startup-id /usr/bin/regolith-ftue
 
 # Hide the mouse pointer if unused for a duration
-exec --no-startup-id /usr/bin/unclutter -b
+		exec --no-startup-id /usr/bin/unclutter -b
 
 # Load nm-applet to provide auth dialogs for network access
-exec --no-startup-id /usr/bin/nm-applet
+		exec --no-startup-id /usr/bin/nm-applet
 
 # Load ulauncher
-exec --no-startup-id /usr/bin/ulauncher
-exec --no-startup-id /usr/bin/ulauncher-toggle
+		exec --no-startup-id /usr/bin/ulauncher
+		exec --no-startup-id /usr/bin/ulauncher-toggle
 
 ###############################################################################
 # Common Mac key bindings
 ###############################################################################
 
-bindsym --release $alt+x exec xdotool key --clearmodifiers ctrl+x
-bindsym --release $alt+c exec xdotool key --clearmodifiers ctrl+c
-bindsym --release $alt+v exec xdotool key --clearmodifiers ctrl+v
-bindsym --release $alt+z exec xdotool key --clearmodifiers ctrl+z
-bindsym --release $alt+p exec xdotool key --clearmodifiers ctrl+p
-bindsym --release $alt+a exec xdotool key --clearmodifiers ctrl+a
-bindsym --release $alt+s exec xdotool key --clearmodifiers ctrl+s
-bindsym --release $alt+t exec xdotool key --clearmodifiers ctrl+t
-bindsym --release $alt+w exec xdotool key --clearmodifiers ctrl+w
-bindsym --release $alt+n exec xdotool key --clearmodifiers ctrl+n
-bindsym --release $alt+q exec xdotool key --clearmodifiers ctrl+q
-bindsym --release $alt+f exec xdotool key --clearmodifiers ctrl+f
-bindsym --release $alt+Shift+t exec xdotool key --clearmodifiers ctrl+shift+t
+		bindsym --release $alt+x exec xdotool key --clearmodifiers ctrl+x
+		bindsym --release $alt+c exec xdotool key --clearmodifiers ctrl+c
+		bindsym --release $alt+v exec xdotool key --clearmodifiers ctrl+v
+		bindsym --release $alt+z exec xdotool key --clearmodifiers ctrl+z
+		bindsym --release $alt+p exec xdotool key --clearmodifiers ctrl+p
+		bindsym --release $alt+a exec xdotool key --clearmodifiers ctrl+a
+		bindsym --release $alt+s exec xdotool key --clearmodifiers ctrl+s
+		bindsym --release $alt+t exec xdotool key --clearmodifiers ctrl+t
+		bindsym --release $alt+w exec xdotool key --clearmodifiers ctrl+w
+		bindsym --release $alt+n exec xdotool key --clearmodifiers ctrl+n
+		bindsym --release $alt+q exec xdotool key --clearmodifiers ctrl+q
+		bindsym --release $alt+f exec xdotool key --clearmodifiers ctrl+f
+		bindsym --release $alt+Shift+t exec xdotool key --clearmodifiers ctrl+shift+t
 
-bindsym $alt+Shift+3 exec flameshot gui -p ~/Desktop
-bindsym $alt+Shift+4 exec flameshot full -p ~/Desktop
+		bindsym $alt+Shift+3 exec flameshot gui -p ~/Desktop
+		bindsym $alt+Shift+4 exec flameshot full -p ~/Desktop
