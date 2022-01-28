@@ -88,29 +88,30 @@ Plug 'chrisbra/csv.vim'
 Plug 'alvan/vim-closetag'
 Plug 'suy/vim-context-commentstring'
 Plug 'ThePrimeagen/harpoon'
+Plug 'easymotion/vim-easymotion'
 
 " Language Client
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 let g:coc_global_extensions = [
-      \ 'coc-emmet',
-      \ 'coc-css',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-tsserver',
-      \ 'coc-phpls',
-      \ 'coc-eslint',
-      \ 'coc-go',
-      \ 'coc-rls',
-      \ 'coc-markdownlint',
-      \ 'coc-php-cs-fixer',
-      \ 'coc-pyright',
-      \ 'coc-sh',
-      \ 'coc-snippets',
-      \ 'coc-sql',
-      \ 'coc-xml',
-      \ 'coc-yaml'
-      \ ]
+            \ 'coc-emmet',
+            \ 'coc-css',
+            \ 'coc-html',
+            \ 'coc-json',
+            \ 'coc-prettier',
+            \ 'coc-tsserver',
+            \ 'coc-phpls',
+            \ 'coc-eslint',
+            \ 'coc-go',
+            \ 'coc-rls',
+            \ 'coc-markdownlint',
+            \ 'coc-php-cs-fixer',
+            \ 'coc-pyright',
+            \ 'coc-sh',
+            \ 'coc-snippets',
+            \ 'coc-sql',
+            \ 'coc-xml',
+            \ 'coc-yaml'
+            \ ]
 
 " TypeScript Highlighting
 " Plug 'leafgarland/typescript-vim'
@@ -134,7 +135,7 @@ call plug#end()
 
 " Enable theming support
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 
 " Theme
@@ -196,8 +197,8 @@ au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+;
 " uses zsh instead of bash
 function! OpenTerminal()
-  split term://bash
-  resize 10
+    split term://bash
+    resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
@@ -207,7 +208,7 @@ let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
 " airline symbols
@@ -241,11 +242,11 @@ let g:closetag_emptyTags_caseSensitive = 1
 " dict
 " Disables auto-close if not in a "valid" region (based on filetype)
 let g:closetag_regions = {
-      \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-      \ 'javascript.jsx': 'jsxRegion',
-      \ 'typescriptreact': 'jsxRegion,tsxRegion',
-      \ 'javascriptreact': 'jsxRegion',
-      \ }
+            \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+            \ 'javascript.jsx': 'jsxRegion',
+            \ 'typescriptreact': 'jsxRegion,tsxRegion',
+            \ 'javascriptreact': 'jsxRegion',
+            \ }
 " Shortcut for closing tags, default is '>'
 let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
@@ -253,12 +254,12 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " " vim-context-commentstring
 if exists('g:context#commentstring#table')
-  let g:context#commentstring#table['javascript.jsx'] = {
-        \ 'jsComment' : '// %s',
-        \ 'jsImport' : '// %s',
-        \ 'jsxStatment' : '// %s',
-        \ 'jsxRegion' : '{/*%s*/}',
-        \}
+    let g:context#commentstring#table['javascript.jsx'] = {
+                \ 'jsComment' : '// %s',
+                \ 'jsImport' : '// %s',
+                \ 'jsxStatment' : '// %s',
+                \ 'jsxRegion' : '{/*%s*/}',
+                \}
 endif
 
 " neoformat
@@ -284,8 +285,8 @@ let g:neoformat_try_formatprg = 1
 
 " format code on save
 augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
 " organize go imports on save
@@ -295,7 +296,25 @@ autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 " harpoon
-nmap <silent>s <cmd> :lua require("harpoon.mark").add_file()<cr>
+nmap <silent>a <cmd> :lua require("harpoon.mark").add_file()<cr>
 nmap <silent>m <cmd> :lua require("harpoon.ui").toggle_quick_menu()<cr>
-nmap <silent>a <cmd> :lua require("harpoon.ui").nav_prev()<cr>
+nmap <silent>d <cmd> :lua require("harpoon.ui").nav_prev()<cr>
 nmap <silent>f <cmd> :lua require("harpoon.ui").nav_next()<cr>
+
+" Easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
