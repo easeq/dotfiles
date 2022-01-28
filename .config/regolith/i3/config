@@ -39,8 +39,8 @@
 ###############################################################################
 
 # Meta Key - Alt key is Mod1, and Windows key is Mod4
-set $mod  Mod1
-set $alt  Mod4
+set $mod  Mod4
+set $alt  Mod1
 
 set_from_resource $i3-wm.binding. i3-wm.binding.
 
@@ -81,13 +81,13 @@ set $ws10_key 0
 ###############################################################################
 
 ## Launch // Terminal // <>> Enter ##
-bindsym $alt+Return exec /usr/bin/x-terminal-emulator
+bindsym $mod+Return exec /usr/bin/x-terminal-emulator
 
 ## Launch // Browser // <>>Shift> Enter ##
-bindsym $alt+Shift+Return exec "gtk-launch $(xdg-settings get default-web-browser)"
+bindsym $mod+Shift+Return exec "gtk-launch $(xdg-settings get default-web-browser)"
 
 ## Launch // Application // <>> Space ##
-bindsym $alt+space exec ulauncher-toggle
+bindsym $mod+space exec ulauncher-toggle
 
 ###############################################################################
 # Window and Workspace Navigation
@@ -124,7 +124,9 @@ bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
 ## Navigate // Next Workspace // <Alt> Tab ##
-bindsym $mod+Tab workspace next
+bindsym $alt+Tab workspace next
+## Navigate open windows <Command|Windows> Tab
+bindsym $mod+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 
 ###############################################################################
 # Window and Workspace Configuration
@@ -206,7 +208,7 @@ hide_edge_borders smart
 ###############################################################################
 
 ## Session // Exit App // <>> q ##
-bindsym $alt+q [con_id="__focused__"] kill
+bindsym $mod+q [con_id="__focused__"] kill
 
 ## Session // Reload i3 Config // <Alt><Shift> c ##
 bindsym $mod+Shift+c reload
@@ -302,7 +304,7 @@ focus_follows_mouse no
 
 
 ## Sets i3 font for dialogs
-font pango:Source Code Pro Medium 11
+font pango:Source Code Pro for Powerline Medium 10
 
 ###############################################################################
 # i3 Colors and Fonts
@@ -376,19 +378,20 @@ exec --no-startup-id /usr/bin/ulauncher-toggle
 # Common Mac key bindings
 ###############################################################################
 
-bindsym --release $alt+x exec xdotool key --clearmodifiers ctrl+x
-bindsym --release $alt+c exec xdotool key --clearmodifiers ctrl+c
-bindsym --release $alt+v exec xdotool key --clearmodifiers ctrl+v
-bindsym --release $alt+z exec xdotool key --clearmodifiers ctrl+z
-bindsym --release $alt+p exec xdotool key --clearmodifiers ctrl+p
-bindsym --release $alt+a exec xdotool key --clearmodifiers ctrl+a
-bindsym --release $alt+s exec xdotool key --clearmodifiers ctrl+s
-bindsym --release $alt+t exec xdotool key --clearmodifiers ctrl+t
-bindsym --release $alt+w exec xdotool key --clearmodifiers ctrl+w
-bindsym --release $alt+n exec xdotool key --clearmodifiers ctrl+n
-bindsym --release $alt+q exec xdotool key --clearmodifiers ctrl+q
-bindsym --release $alt+f exec xdotool key --clearmodifiers ctrl+f
-bindsym --release $alt+Shift+t exec xdotool key --clearmodifiers ctrl+shift+t
+bindsym --release $mod+x exec xdotool key --clearmodifiers ctrl+x
+bindsym --release $mod+c exec xdotool key --clearmodifiers ctrl+c
+bindsym --release $mod+v exec xdotool key --clearmodifiers ctrl+v
+bindsym --release $mod+z exec xdotool key --clearmodifiers ctrl+z
+bindsym --release $mod+p exec xdotool key --clearmodifiers ctrl+p
+bindsym --release $mod+a exec xdotool key --clearmodifiers ctrl+a
+bindsym --release $mod+s exec xdotool key --clearmodifiers ctrl+s
+bindsym --release $mod+t exec xdotool key --clearmodifiers ctrl+t
+bindsym --release $mod+w exec xdotool key --clearmodifiers ctrl+w
+bindsym --release $mod+n exec xdotool key --clearmodifiers ctrl+n
+bindsym --release $mod+q exec xdotool key --clearmodifiers ctrl+q
+bindsym --release $mod+f exec xdotool key --clearmodifiers ctrl+f
+bindsym --release $mod+Shift+t exec xdotool key --clearmodifiers ctrl+shift+t
 
 bindsym $alt+Shift+3 exec flameshot gui -p ~/Desktop
 bindsym $alt+Shift+4 exec flameshot full -p ~/Desktop
+
