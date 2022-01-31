@@ -331,8 +331,10 @@ bar {
 		mode dock
 		font pango:Source Code Pro for Powerline Medium 10
 		status_command ~/.config/regolith/bumblebee-status/bumblebee-status \
-		-m nic publicip disk:root memory pasink pasource battery date time \
-		-p root.path=/ time.format="%H:%M:%S" date.format="%a, %b %d %Y" \
+		-m nic pomodoro publicip disk:root memory pasink pasource battery date time \
+		-p root.path=/ \
+		time.format="%H:%M:%S" \
+		date.format="%a, %b %d %Y" \
 		-t dracula-powerline
 
 		tray_output primary
