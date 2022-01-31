@@ -18,7 +18,7 @@
 :set cursorline
 :set encoding=utf-8
 
-:set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
+:set guifont=Source\ Code\ Pro\ Medium\ for\ Powerline\ 11
 
 " Nice menu when typing `:find *.py`
 set wildmode=longest,list,full
@@ -83,7 +83,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'sbdchd/neoformat'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'chrisbra/csv.vim'
 Plug 'alvan/vim-closetag'
 Plug 'suy/vim-context-commentstring'
@@ -115,13 +115,12 @@ let g:coc_global_extensions = [
 
 " TypeScript Highlighting
 " Plug 'yuezk/vim-js'
-" Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " File Explorer with Icons
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-
 
 " Plug 'hashivim/vim-terraform'
 
@@ -132,8 +131,9 @@ set encoding=UTF-8
 call plug#end()
 
 
-" Enable theming support
-if (has("termguicolors"))
+if (exists('+termguicolors'))
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
@@ -219,9 +219,6 @@ let g:airline_symbols.branch = '|'
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-" vim-indentline
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
 " closetag
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
@@ -258,6 +255,7 @@ if exists('g:context#commentstring#table')
         \ 'jsImport' : '// %s',
         \ 'jsxStatment' : '// %s',
         \ 'jsxRegion' : '{/*%s*/}',
+        \ 'jsx_text' : '{/*%s*/}',
         \}
 endif
 
@@ -511,6 +509,21 @@ timeout = 500,
     cmd = "trash",
     require_confirm = true
     }
+  }
+
+EOF
+
+" indent-blankline
+lua <<EOF
+
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup {
+  space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
   }
 
 EOF
