@@ -93,34 +93,38 @@ Plug 'easymotion/vim-easymotion'
 " Language Client
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 let g:coc_global_extensions = [
-      \ 'coc-emmet',
-      \ 'coc-css',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-tsserver',
-      \ 'coc-phpls',
-      \ 'coc-eslint',
-      \ 'coc-go',
-      \ 'coc-rls',
-      \ 'coc-markdownlint',
-      \ 'coc-php-cs-fixer',
-      \ 'coc-pyright',
-      \ 'coc-sh',
-      \ 'coc-snippets',
-      \ 'coc-sql',
-      \ 'coc-xml',
-      \ 'coc-yaml'
-      \ ]
+            \ 'coc-emmet',
+            \ 'coc-css',
+            \ 'coc-html',
+            \ 'coc-json',
+            \ 'coc-prettier',
+            \ 'coc-tsserver',
+            \ 'coc-phpls',
+            \ 'coc-eslint',
+            \ 'coc-go',
+            \ 'coc-rls',
+            \ 'coc-markdownlint',
+            \ 'coc-php-cs-fixer',
+            \ 'coc-pyright',
+            \ 'coc-sh',
+            \ 'coc-snippets',
+            \ 'coc-sql',
+            \ 'coc-xml',
+            \ 'coc-yaml'
+            \ ]
 
 " TypeScript Highlighting
 " Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 
-" File Explorer with Icons
+" File Explorer with Iconsgutter
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+
+" vim-go
+Plug 'fatih/vim-go'
+
 
 " Plug 'hashivim/vim-terraform'
 
@@ -132,9 +136,9 @@ call plug#end()
 
 
 if (exists('+termguicolors'))
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
 " Theme
@@ -150,7 +154,7 @@ set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
 
 " set winhighlight=Normal:MyNormal,NormalNC:MyNormalNC
-set fillchars=vert:\ ,fold:-,diff:-
+set fillchars=vert:\|,fold:-,diff:-
 highlight ColorColumn guifg=#333333 guibg=#333333 ctermbg=0
 highlight VertSplit guibg=#555555 guifg=#555555 ctermbg=6 ctermfg=0
 
@@ -196,8 +200,8 @@ au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+;
 " uses zsh instead of bash
 function! OpenTerminal()
-  split term://bash
-  resize 10
+    split term://bash
+    resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
@@ -207,7 +211,7 @@ let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
 " airline symbols
@@ -238,11 +242,11 @@ let g:closetag_emptyTags_caseSensitive = 1
 " dict
 " Disables auto-close if not in a "valid" region (based on filetype)
 let g:closetag_regions = {
-      \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-      \ 'javascript.jsx': 'jsxRegion',
-      \ 'typescriptreact': 'jsxRegion,tsxRegion',
-      \ 'javascriptreact': 'jsxRegion',
-      \ }
+            \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+            \ 'javascript.jsx': 'jsxRegion',
+            \ 'typescriptreact': 'jsxRegion,tsxRegion',
+            \ 'javascriptreact': 'jsxRegion',
+            \ }
 " Shortcut for closing tags, default is '>'
 let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
@@ -250,19 +254,19 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " " vim-context-commentstring
 if exists('g:context#commentstring#table')
-  let g:context#commentstring#table['javascript.jsx'] = {
-        \ 'jsComment' : '// %s',
-        \ 'jsImport' : '// %s',
-        \ 'jsxStatment' : '// %s',
-        \ 'jsxRegion' : '{/*%s*/}',
-        \ 'jsx_text' : '{/*%s*/}',
-        \}
+    let g:context#commentstring#table['javascript.jsx'] = {
+                \ 'jsComment' : '// %s',
+                \ 'jsImport' : '// %s',
+                \ 'jsxStatment' : '// %s',
+                \ 'jsxRegion' : '{/*%s*/}',
+                \ 'jsx_text' : '{/*%s*/}',
+                \}
 endif
 
 " neoformat
 " let g:neoformat_try_node_exe = 1
 " " Enable alignment
-let g:neoformat_basic_format_align = 1
+let g:neoformat_basic_format_align = 0
 " Enable tab to spaces conversion
 let g:neoformat_basic_format_retab = 1
 " Enable trimmming of trailing whitespace
@@ -282,8 +286,8 @@ let g:neoformat_try_formatprg = 1
 
 " format code on save
 augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
 " organize go imports on save
@@ -319,32 +323,32 @@ map <Leader>k <Plug>(easymotion-k)
 " nvim treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+    -- One of "all", "maintained" (parsers with maintainers), or a list of languages
 ensure_installed = {
-  "json",
-  "javascript",
-  "html",
-  "hcl",
-  "go",
-  "lua",
-  "python",
-  "php",
-  "rust",
-  "typescript",
-  "yaml",
-  "toml",
-  "tsx",
-  "make",
-  "regex",
-  "graphql",
-  "dockerfile",
-  "bash",
-  "css",
-  "dot",
-  "gomod",
-  "markdown",
-  "scss"
-  },
+    "json",
+    "javascript",
+    "html",
+    "hcl",
+    "go",
+    "lua",
+    "python",
+    "php",
+    "rust",
+    "typescript",
+    "yaml",
+    "toml",
+    "tsx",
+    "make",
+    "regex",
+    "graphql",
+    "dockerfile",
+    "bash",
+    "css",
+    "dot",
+    "gomod",
+    "markdown",
+    "scss"
+    },
 
 -- Install languages synchronously (only applied to `ensure_installed`)
 sync_install = false,
@@ -353,7 +357,7 @@ sync_install = false,
 -- ignore_install = { "javascript" },
 
 highlight = {
-  -- `false` will disable the whole extension
+    -- `false` will disable the whole extension
 enable = true,
 
 -- list of language that will be disabled
@@ -385,25 +389,25 @@ let g:nvim_tree_respect_buf_cwd = 1 "0 by default, will change cwd of nvim-tree 
 let g:nvim_tree_create_in_closed_folder = 0 "1 by default, When creating files, sets the path of a file when cursor is on a closed folder to the parent folder when 0, and inside the folder when 1.
 let g:nvim_tree_refresh_wait = 500 "1000 by default, control how often the tree can be refreshed, 1000 means the tree can be refresh once per 1000ms.
 let g:nvim_tree_window_picker_exclude = {
-      \   'filetype': [
-        \     'notify',
-        \     'packer',
-        \     'qf'
-        \   ],
-        \   'buftype': [
-          \     'terminal'
-          \   ]
-          \ }
+            \   'filetype': [
+                \     'notify',
+                \     'packer',
+                \     'qf'
+                \   ],
+                \   'buftype': [
+                    \     'terminal'
+                    \   ]
+                    \ }
 " Dictionary of buffer option names mapped to a list of option values that
 " indicates to the window picker that the buffer's window should not be
 " selectable.
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 } " List of filenames that gets highlighted with NvimTreeSpecialFile
 let g:nvim_tree_show_icons = {
-      \ 'git': 1,
-      \ 'folders': 1,
-      \ 'files': 1,
-      \ 'folder_arrows': 1,
-      \ }
+            \ 'git': 1,
+            \ 'folders': 1,
+            \ 'files': 1,
+            \ 'folder_arrows': 1,
+            \ }
 "If 0, do not show the icons for one of 'git' 'folder' and 'files'
 "1 by default, notice that if 'files' is 1, it will only display
 "if nvim-web-devicons is installed and on your runtimepath.
@@ -413,28 +417,28 @@ let g:nvim_tree_show_icons = {
 " default will show icon by default if no icon is provided
 " default shows no icon by default
 let g:nvim_tree_icons = {
-      \ 'default': '',
-      \ 'symlink': '',
-      \ 'git': {
-        \   'unstaged': "✗",
-        \   'staged': "✓",
-        \   'unmerged': "",
-        \   'renamed': "➜",
-        \   'untracked': "★",
-        \   'deleted': "",
-        \   'ignored': "◌"
-        \   },
-        \ 'folder': {
-          \   'arrow_open': "",
-          \   'arrow_closed': "",
-          \   'default': "",
-          \   'open': "",
-          \   'empty': "",
-          \   'empty_open': "",
-          \   'symlink': "",
-          \   'symlink_open': "",
-          \   }
-          \ }
+            \ 'default': '',
+            \ 'symlink': '',
+            \ 'git': {
+                \   'unstaged': "✗",
+                \   'staged': "✓",
+                \   'unmerged': "",
+                \   'renamed': "➜",
+                \   'untracked': "★",
+                \   'deleted': "",
+                \   'ignored': "◌"
+                \   },
+                \ 'folder': {
+                    \   'arrow_open': "",
+                    \   'arrow_closed': "",
+                    \   'default': "",
+                    \   'open': "",
+                    \   'empty': "",
+                    \   'empty_open': "",
+                    \   'symlink': "",
+                    \   'symlink_open': "",
+                    \   }
+                    \ }
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -452,26 +456,26 @@ lua <<EOF
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 require'nvim-tree'.setup {
-  disable_netrw       = true,
-  hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  auto_close          = false,
-  open_on_tab         = false,
-  hijack_cursor       = false,
-  update_cwd          = false,
-  update_to_buf_dir   = {
-  enable = true,
-  auto_open = true,
-  },
+    disable_netrw       = true,
+    hijack_netrw        = true,
+    open_on_setup       = false,
+    ignore_ft_on_setup  = {},
+    auto_close          = false,
+    open_on_tab         = false,
+    hijack_cursor       = false,
+    update_cwd          = false,
+    update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+    },
 diagnostics = {
 enable = false,
 icons = {
-  hint = "",
-  info = "",
-  warning = "",
-  error = "",
-  }
+    hint = "",
+    info = "",
+    warning = "",
+    error = "",
+    }
 },
   update_focused_file = {
   enable      = false,
@@ -479,36 +483,36 @@ icons = {
   ignore_list = {}
   },
 system_open = {
-  cmd  = nil,
-  args = {}
-  },
+    cmd  = nil,
+    args = {}
+    },
 filters = {
-  dotfiles = false,
-  custom = {}
-  },
+    dotfiles = false,
+    custom = {}
+    },
 git = {
 enable = true,
 ignore = true,
 timeout = 500,
 },
   view = {
-    width = 30,
-    height = 30,
-    hide_root_folder = false,
-    side = 'left',
-    auto_resize = false,
-    mappings = {
-      custom_only = false,
-      list = {}
+      width = 30,
+      height = 30,
+      hide_root_folder = false,
+      side = 'left',
+      auto_resize = false,
+      mappings = {
+          custom_only = false,
+          list = {}
+          },
+      number = false,
+      relativenumber = false,
+      signcolumn = "yes"
       },
-    number = false,
-    relativenumber = false,
-    signcolumn = "yes"
-    },
   trash = {
-    cmd = "trash",
-    require_confirm = true
-    }
+      cmd = "trash",
+      require_confirm = true
+      }
   }
 
 EOF
@@ -521,9 +525,9 @@ vim.opt.listchars:append("space:⋅")
 vim.opt.listchars:append("eol:↴")
 
 require("indent_blankline").setup {
-  space_char_blankline = " ",
-  show_current_context = true,
-  show_current_context_start = true,
-  }
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+    }
 
 EOF
