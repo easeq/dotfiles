@@ -70,25 +70,26 @@ autocmd Filetype sql setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 call plug#begin("~/.vim/plugged")
 " Theme
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'joshdick/onedark.vim'
+Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
+Plug 'easymotion/vim-easymotion'
+Plug 'chrisbra/csv.vim'
+
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'tpope/vim-obsession'
-Plug 'https://github.com/tpope/vim-commentary'
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/blueyed/vim-diminactive'
+
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'sbdchd/neoformat'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'chrisbra/csv.vim'
-Plug 'alvan/vim-closetag'
-Plug 'suy/vim-context-commentstring'
 Plug 'ThePrimeagen/harpoon'
-Plug 'easymotion/vim-easymotion'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'alvan/vim-closetag'
+Plug 'https://github.com/tpope/vim-commentary'
+Plug 'suy/vim-context-commentstring'
 
 " Language Client
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
@@ -125,9 +126,6 @@ Plug 'kyazdani42/nvim-tree.lua'
 " vim-go
 Plug 'fatih/vim-go'
 
-
-" Plug 'hashivim/vim-terraform'
-
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 set encoding=UTF-8
@@ -155,26 +153,34 @@ set guicursor+=i:blinkwait10
 
 " set winhighlight=Normal:MyNormal,NormalNC:MyNormalNC
 set fillchars=vert:\|,fold:-,diff:-
-highlight ColorColumn guifg=#333333 guibg=#333333 ctermbg=0
+highlight ColorColumn guifg=#aaaaaa guibg=#333333 ctermbg=0
 highlight VertSplit guibg=#555555 guifg=#555555 ctermbg=6 ctermfg=0
 
-let g:NERDTreeShowHidden = 0
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = []
-let g:NERDTreeStatusline = ''
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" Modify leader key
+let mapleader = " "
 
 " Remap escape to qq
 inoremap qq <Esc>
 
 " Find files using Telescope command-line sugar.
 nnoremap <silent>ff <cmd>Telescope find_files<cr>
+nnoremap <silent>fm <cmd>Telescope file_browser<cr>
 nnoremap <silent>fg <cmd>Telescope live_grep<cr>
 nnoremap <silent>fb <cmd>Telescope buffers<cr>
 nnoremap <silent>fh <cmd>Telescope help_tags<cr>
+nnoremap <silent>fr <cmd>Telescope resume<cr>
+
+lua << EOF
+require("telescope").load_extension('harpoon')
+require("telescope").load_extension('file_browser')
+EOF
+
+" harpoon?
+nmap <silent>a <cmd> :lua require("harpoon.mark").add_file()<cr>
+nmap <silent>m <cmd> :Telescope harpoon marks<cr>
+" nmap <silent>d <cmd> :lua require("harpoon.ui").nav_prev()<cr>
+" nmap <silent>f <cmd> :lua require("harpoon.ui").nav_next()<cr>
+
 
 " open new split panes to right and below
 set splitright
@@ -191,9 +197,27 @@ nnoremap <C-j> <C-d>
 nmap <C-m> gcc
 vmap <C-m> gc
 
-" nnoremap <C-f> :NERDTreeFocus<CR>
-" nnoremap <C-t> :NERDTreeToggle<CR>
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 nnoremap <C-l> :call CocActionAsync('jumpDefinition')<cr>
+
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <c-space> coc#refresh()
+
+" format code on save
+augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | call CocActionAsync('format')
+augroup END
+
+
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
@@ -263,44 +287,12 @@ if exists('g:context#commentstring#table')
                 \}
 endif
 
-" neoformat
-" let g:neoformat_try_node_exe = 1
-" " Enable alignment
-let g:neoformat_basic_format_align = 0
-" Enable tab to spaces conversion
-let g:neoformat_basic_format_retab = 1
-" Enable trimmming of trailing whitespace
-let g:neoformat_basic_format_trim = 1
-let g:neoformat_run_all_formatters = 1
-let g:neoformat_try_formatprg = 1
-
-" augroup NeoformatAutoFormat
-"     autocmd!
-"     autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\
-"                                                             \--stdin\
-"                                                             \--print-width\ 80\
-"                                                             \--single-quote\
-"                                                             \--trailing-comma\ es5
-"     autocmd BufWritePre *.js,*.jsx Neoformat
-" augroup END
-
-" format code on save
-augroup fmt
-    autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
-augroup END
 
 " organize go imports on save
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
-
-" harpoon
-nmap <silent>a <cmd> :lua require("harpoon.mark").add_file()<cr>
-nmap <silent>m <cmd> :lua require("harpoon.ui").toggle_quick_menu()<cr>
-" nmap <silent>d <cmd> :lua require("harpoon.ui").nav_prev()<cr>
-" nmap <silent>f <cmd> :lua require("harpoon.ui").nav_next()<cr>
 
 " Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -319,6 +311,15 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>h <Plug>(easymotion-linebackward)
 
 " nvim treesitter
 lua <<EOF
