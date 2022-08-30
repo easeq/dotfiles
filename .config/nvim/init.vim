@@ -102,7 +102,6 @@ let g:coc_global_extensions = [
             \ 'coc-phpls',
             \ 'coc-eslint',
             \ 'coc-go',
-            \ 'coc-rls',
             \ 'coc-markdownlint',
             \ 'coc-php-cs-fixer',
             \ 'coc-pyright',
@@ -110,7 +109,8 @@ let g:coc_global_extensions = [
             \ 'coc-snippets',
             \ 'coc-sql',
             \ 'coc-xml',
-            \ 'coc-yaml'
+            \ 'coc-yaml',
+            \ 'coc-rust-analyzer'
             \ ]
 
 " TypeScript Highlighting
